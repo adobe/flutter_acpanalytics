@@ -1,7 +1,5 @@
 # flutter_acpanalytics_example
 
-> Note: Commands are assuming you're in the root directory of the repository.
-
 Demonstrates how to use the flutter_acpanalytics plugin.
 
 ## Getting Started
