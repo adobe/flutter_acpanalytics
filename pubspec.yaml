@@ -1,5 +1,5 @@
 name: flutter_acpanalytics
-description: This package allows for integration with Adobe Experience Platform Analytics inside of Flutter apps.
+description: Official Adobe Experience Platform support for Flutter apps. The Analytics extension allows for integration with Adobe Analytics.
 version: 1.0.0-beta.1
 homepage: https://aep-sdks.gitbook.io/docs/
 repository: https://github.com/adobe/flutter_acpanalytics
