@@ -8,19 +8,7 @@
 
 ## Installation
 
-Add `flutter_acpcore` and `flutter_acpanalytics` to your dependencies in `pubspec.yaml`
-
-```yaml
-dependencies:
-  flutter_acpcore: ^0.0.1
-  flutter_acpanalytics: ^0.0.1
-```
-
-Then fetch the packages with:
-
-```bash
-flutter pub get
-```
+Install instructions for this package can be found [here](https://pub.dev/packages/flutter_acpanalytics#-installing-tab-).
 
 ## Tests
 
