@@ -1,6 +1,7 @@
 ## 1.0.0-beta.3
 
 * Fix install instructions.
+* Fixed a bug when installing with `pod install`.
 
 ## 1.0.0-beta.2
 
