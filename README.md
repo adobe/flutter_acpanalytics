@@ -39,6 +39,13 @@ String version = await FlutterACPAnalytics.extensionVersion;
  > Note: It is required to initialize the SDK via native code inside your AppDelegate and MainApplication for iOS and Android respectively. For more information see how to initialize [Core](https://aep-sdks.gitbook.io/docs/getting-started/initialize-the-sdk).
 
  ##### **iOS**
+Swift
+ ```swift
+import ACPAnalytics
+
+ACPAnalytics.registerExtension()
+ ```
+Objective-C
  ```objective-c
 #import "ACPAnalytics.h"
 
