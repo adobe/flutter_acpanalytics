@@ -31,7 +31,7 @@ import 'package:flutter_acpanalytics/flutter_acpanalytics.dart';
 
 ##### Getting the SDK version:
  ```dart
-String version = FlutterACPAnalytics.extensionVersion;
+String version = await FlutterACPAnalytics.extensionVersion;
  ```
 
  ##### Registering the extension with ACPCore:
