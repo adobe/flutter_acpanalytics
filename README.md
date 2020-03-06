@@ -116,13 +116,13 @@ try {
  ##### Track app actions:
 
  ```dart
-FlutterACPCore.trackAction("myAction",  data: {"key1": "value1"})
+FlutterACPCore.trackAction("myAction",  data: {"key1": "value1"});
  ```
 
  ##### Track app states:
 
  ```dart
-FlutterACPCore.trackState("myState",  data: {"key1": "value1"})
+FlutterACPCore.trackState("myState",  data: {"key1": "value1"});
  ```
 
 ## Contributing
