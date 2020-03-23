@@ -20,7 +20,7 @@ dev_dependencies:
   flutter_acpanalytics:
     path: ../
 
-  flutter_acpcore: ">= 1.0.0-beta.1"
+  flutter_acpcore: ">= 1.0.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
