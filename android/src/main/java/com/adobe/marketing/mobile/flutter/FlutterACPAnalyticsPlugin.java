@@ -17,94 +17,107 @@ import android.os.Looper;
 import com.adobe.marketing.mobile.AdobeCallback;
 import com.adobe.marketing.mobile.Analytics;
 
+import androidx.annotation.NonNull;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-/** FlutterACPAnalyticsPlugin */
-public class FlutterACPAnalyticsPlugin implements MethodCallHandler {
+/**
+ * FlutterACPAnalyticsPlugin
+ */
+public class FlutterACPAnalyticsPlugin implements FlutterPlugin, MethodCallHandler {
 
-  public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_acpanalytics");
-    channel.setMethodCallHandler(new FlutterACPAnalyticsPlugin());
-  }
+    private MethodChannel channel;
 
-  @Override
-  public void onMethodCall(MethodCall call, Result result) {
-    if ("extensionVersion".equals(call.method)) {
-      result.success(Analytics.extensionVersion());
-    } else if ("sendQueuedHits".equals((call.method))) {
-      Analytics.sendQueuedHits();
-      result.success(null);
-    } else if ("clearQueue".equals((call.method))) {
-      Analytics.clearQueue();
-      result.success(null);
-    } else if ("getQueueSize".equals((call.method))) {
-      getQueueSize(result);
-    } else if ("getTrackingIdentifier".equals((call.method))) {
-      getTrackingIdentifier(result);
-    } else if ("getVisitorIdentifier".equals((call.method))) {
-      getVisitorIdentifier(result);
-    } else if ("setVisitorIdentifier".equals((call.method))) {
-      setVisitorIdentifier(call.arguments);
-      result.success(null);
-    } else {
-      result.notImplemented();
+    @Override
+    public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
+        channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_acpanalytics");
+        channel.setMethodCallHandler(new FlutterACPAnalyticsPlugin());
     }
-  }
 
-  private void getQueueSize(final Result result) {
-    Analytics.getQueueSize(new AdobeCallback<Long>() {
-      @Override
-      public void call(final Long queueSize) {
-        runOnUIThread(new Runnable() {
-          @Override
-          public void run() {
-            result.success(queueSize);
-          }
-        });
-      }
-    });
-  }
-
-  private void getTrackingIdentifier(final Result result) {
-    Analytics.getTrackingIdentifier(new AdobeCallback<String>() {
-      @Override
-      public void call(final String trackingIdentifier) {
-        runOnUIThread(new Runnable() {
-          @Override
-          public void run() {
-            result.success(trackingIdentifier);
-          }
-        });
-      }
-    });
-  }
-
-  private void getVisitorIdentifier(final Result result) {
-    Analytics.getVisitorIdentifier(new AdobeCallback<String>() {
-      @Override
-      public void call(final String visitorIdentifier) {
-        runOnUIThread(new Runnable() {
-          @Override
-          public void run() {
-            result.success(visitorIdentifier);
-          }
-        });
-      }
-    });
-  }
-
-  private void setVisitorIdentifier(final Object arguments) {
-    if (arguments instanceof String) {
-      String visitorId = (String) arguments;
-      Analytics.setVisitorIdentifier(visitorId);
+    @Override
+    public void onDetachedFromEngine(@NonNull final FlutterPluginBinding binding) {
+        if (channel != null) {
+            channel.setMethodCallHandler(null);
+        }
     }
-  }
 
-  private void runOnUIThread(Runnable runnable) {
-    new Handler(Looper.getMainLooper()).post(runnable);
-  }
+    @Override
+    public void onMethodCall(MethodCall call, Result result) {
+        if ("extensionVersion".equals(call.method)) {
+            result.success(Analytics.extensionVersion());
+        } else if ("sendQueuedHits".equals((call.method))) {
+            Analytics.sendQueuedHits();
+            result.success(null);
+        } else if ("clearQueue".equals((call.method))) {
+            Analytics.clearQueue();
+            result.success(null);
+        } else if ("getQueueSize".equals((call.method))) {
+            getQueueSize(result);
+        } else if ("getTrackingIdentifier".equals((call.method))) {
+            getTrackingIdentifier(result);
+        } else if ("getVisitorIdentifier".equals((call.method))) {
+            getVisitorIdentifier(result);
+        } else if ("setVisitorIdentifier".equals((call.method))) {
+            setVisitorIdentifier(call.arguments);
+            result.success(null);
+        } else {
+            result.notImplemented();
+        }
+    }
+
+    private void getQueueSize(final Result result) {
+        Analytics.getQueueSize(new AdobeCallback<Long>() {
+            @Override
+            public void call(final Long queueSize) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        result.success(queueSize);
+                    }
+                });
+            }
+        });
+    }
+
+    private void getTrackingIdentifier(final Result result) {
+        Analytics.getTrackingIdentifier(new AdobeCallback<String>() {
+            @Override
+            public void call(final String trackingIdentifier) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        result.success(trackingIdentifier);
+                    }
+                });
+            }
+        });
+    }
+
+    private void getVisitorIdentifier(final Result result) {
+        Analytics.getVisitorIdentifier(new AdobeCallback<String>() {
+            @Override
+            public void call(final String visitorIdentifier) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        result.success(visitorIdentifier);
+                    }
+                });
+            }
+        });
+    }
+
+    private void setVisitorIdentifier(final Object arguments) {
+        if (arguments instanceof String) {
+            String visitorId = (String) arguments;
+            Analytics.setVisitorIdentifier(visitorId);
+        }
+    }
+
+    private void runOnUIThread(Runnable runnable) {
+        new Handler(Looper.getMainLooper()).post(runnable);
+    }
 }

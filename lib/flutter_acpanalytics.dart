@@ -19,41 +19,29 @@ class FlutterACPAnalytics {
       const MethodChannel('flutter_acpanalytics');
 
   /// Gets the current Analytics extension version.
-  static Future<String> get extensionVersion async {
-    final String version = await _channel.invokeMethod('extensionVersion');
-    return version;
-  }
+  static Future<String> get extensionVersion =>
+      _channel.invokeMethod('extensionVersion').then((value) => value!);
 
   /// Sends all queued hits to Analytics, regardless of the current hit batch settings.
-  static Future<void> sendQueuedHits() async {
-    await _channel.invokeMethod<void>('sendQueuedHits');
-  }
+  static Future<void> sendQueuedHits() =>
+      _channel.invokeMethod<void>('sendQueuedHits');
 
   /// Force delete, without sending to Analytics, all hits being stored or batched on the SDK.
-  static Future<void> clearQueue() async {
-    await _channel.invokeMethod<void>('clearQueue');
-  }
+  static Future<void> clearQueue() => _channel.invokeMethod<void>('clearQueue');
 
   /// Retrieves the total number of Analytics hits in the tracking queue.
-  static Future<int> get queueSize async {
-    final int size = await _channel.invokeMethod('getQueueSize');
-    return size;
-  }
+  static Future<int> get queueSize =>
+      _channel.invokeMethod('getQueueSize').then((value) => value ?? 0);
 
   /// Retrieves the Analytics tracking identifier that is generated for this app/device instance.
-  static Future<String> get trackingIdentifier async {
-    final String id = await _channel.invokeMethod('getTrackingIdentifier');
-    return id;
-  }
+  static Future<String?> get trackingIdentifier => _channel
+      .invokeMethod<String>('getTrackingIdentifier');
 
   /// Gets a custom Analytics visitor identifier.
-  static Future<String> get visitorIdentifier async {
-    final String vid = await _channel.invokeMethod('getVisitorIdentifier');
-    return vid;
-  }
+  static Future<String?> get visitorIdentifier => _channel
+      .invokeMethod<String>('getVisitorIdentifier');
 
   /// Sets a custom Analytics visitor identifier.
-  static Future<void> setVisitorIdentifier(String vid) async {
-    await _channel.invokeMethod<void>('setVisitorIdentifier', vid ?? "");
-  }
+  static Future<void> setVisitorIdentifier(String vid) =>
+      _channel.invokeMethod<void>('setVisitorIdentifier', vid);
 }
