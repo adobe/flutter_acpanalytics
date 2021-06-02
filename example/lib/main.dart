@@ -8,14 +8,13 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:flutter/services.dart';
-import 'package:flutter_acpcore/flutter_acpcore.dart';
 import 'package:flutter_acpanalytics/flutter_acpanalytics.dart';
+import 'package:flutter_acpcore/flutter_acpcore.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,7 +40,7 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    String platformVersion = '';
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await FlutterACPAnalytics.extensionVersion;
@@ -60,7 +59,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getQueueSize() async {
-    int queueSize;
+    int queueSize = 0;
     try {
       queueSize = await FlutterACPAnalytics.queueSize;
     } on PlatformException {
@@ -75,9 +74,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getTrackingIdentifier() async {
-    String trackingId;
+    String trackingId = '';
     try {
-      trackingId = await FlutterACPAnalytics.trackingIdentifier;
+      trackingId = await FlutterACPAnalytics.trackingIdentifier ?? '???';
     } on PlatformException {
       log("Failed to get the tracking identifier");
     }
@@ -89,9 +88,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getVisitorIdentifier() async {
-    String visitorId;
+    String visitorId = '';
     try {
-      visitorId = await FlutterACPAnalytics.visitorIdentifier;
+      visitorId = await FlutterACPAnalytics.visitorIdentifier ?? '???';
     } on PlatformException {
       visitorId = "Failed to get the visitor identifier";
     }
@@ -115,29 +114,29 @@ class _MyAppState extends State<MyApp> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text("ACPCore.trackState(...)"),
                     onPressed: () => FlutterACPCore.trackState("myState",
                         data: {"key1": "value1"}),
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text("ACPCore.trackAction(...)"),
                     onPressed: () => FlutterACPCore.trackAction("myAction",
                         data: {"key1": "value1"}),
                   ),
                 ]),
-            RaisedButton(
+            ElevatedButton(
               child: Text("ACPAnalytics.sendQueuedHits()"),
               onPressed: () => FlutterACPAnalytics.sendQueuedHits(),
             ),
-            RaisedButton(
+            ElevatedButton(
               child: Text("ACPAnalytics.clearQueue()"),
               onPressed: () => FlutterACPAnalytics.clearQueue(),
             ),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text("ACPAnalytics.getQueueSize()"),
                     onPressed: () => getQueueSize(),
                   ),
@@ -146,7 +145,7 @@ class _MyAppState extends State<MyApp> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text("ACPAnalytics.getTrackingIdentifier()"),
                     onPressed: () => getTrackingIdentifier(),
                   ),
@@ -155,13 +154,13 @@ class _MyAppState extends State<MyApp> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  RaisedButton(
+                  ElevatedButton(
                     child: Text("ACPAnalytics.getVisitorIdentifier()"),
                     onPressed: () => getVisitorIdentifier(),
                   ),
                   Text('Visitor Id = $_visitorId\n'),
                 ]),
-            RaisedButton(
+            ElevatedButton(
               child: Text("ACPAnalytics.setVisitorIdentifier(vid)"),
               onPressed: () => FlutterACPAnalytics.setVisitorIdentifier("vid"),
             ),
