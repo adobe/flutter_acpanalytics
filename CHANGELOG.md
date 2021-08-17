@@ -1,5 +1,9 @@
 ## 2.0.0
 
+* Reference the android library from mavenCentral 
+
+## 2.0.0
+
 * Add Null-safety support
 
 ## 1.0.0
