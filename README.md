@@ -20,7 +20,7 @@ flutter test
 
 ## Usage
 
-### [Analytics](https://developer.adobe.com/client-sdks/previous-versions/documentation/adobe-analytics/)
+### Analytics
 
 ##### Importing the SDK:
 ```dart
